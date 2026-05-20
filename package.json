@@ -1,0 +1,27 @@
+{
+  "name": "seas",
+  "version": "1.0.0",
+  "description": "theo(dor)",
+  "keywords": [
+    "node",
+    "theo"
+  ],
+  "homepage": "https://github.com/PlonerNoahseas/seas#readme",
+  "bugs": {
+    "url": "https://github.com/PlonerNoahseas/seas/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PlonerNoahseas/seas.git"
+  },
+  "license": "ISC",
+  "author": "ich",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
