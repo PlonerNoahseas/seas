@@ -16,10 +16,11 @@ class OmegaIo extends Phaser.Scene {
     create() {
         this.add.tileSprite(0, 0, 1200, 800, "racetrack").setOrigin(0, 0);
         
-        this.car = this.physics.add.sprite(400, 300, "car"). setCollideWorldBounds(true).setScale(0.5);
+        this.car = this.physics.add.sprite(400, 300, "car"). setCollideWorldBounds(true).setScale(0.2);
 
         this.cursors = this.input.keyboard.createCursorKeys();
-    
+        
+        this.setupMultiplayer();
     }
 
     update() {
@@ -44,8 +45,27 @@ class OmegaIo extends Phaser.Scene {
         else {
             this.car.body.velocity.scale(0.98);
         }
+      
+       socket.emit("update", {x: this.car.x, y: this.car.y, angle: this.car.angle});
+
+    }
+
+    setupMultiplayer() {
+        socket.emit("ready");
+
+        socket.on("init", (data) => {
+            this.playerId = data.id;
+            this.players = data.players;
+            // hier übernehmen wir für unser car die position und den winkel und die farbe die wir vom server erhalten
+            const playerData = this.players[this.playerId];
+            this.car.setPosition(playerData.x, playerData.y);
+            this.car.setAngle(playerData.angle);
+            this.car.setTint(playerData.color);
+        });
+
     }
 }
+
 
 new Phaser.Game({
     type: Phaser.AUTO,
